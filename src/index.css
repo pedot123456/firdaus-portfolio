@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --scrollbar-track: #0e0e1a;
+    --scrollbar-thumb: #2a2a4a;
+    --grid-color: rgba(99, 102, 241, 0.06);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #050505;
+    color: #ffffff;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: #050505;
+    color: #f0f0ff;
+  }
+
+  body.light {
+    background-color: #f8f8ff;
+    color: #0f0f1a;
+    --grid-color: rgba(99, 102, 241, 0.05);
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.3);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* ── Gradient text ──────────────────────────────────────────────────── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+  }
+
+  .gradient-text-animate {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4, #6366f1);
+    background-size: 300% 300%;
+    animation: gradientShift 5s ease infinite;
+  }
+
+  /* ── Grid line backgrounds ──────────────────────────────────────────── */
+  .grid-lines {
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .dot-grid-light {
+    background-image: radial-gradient(circle, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* ── Glass morphism ─────────────────────────────────────────────────── */
+  .glass-card {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  /* ── Noise texture overlay ──────────────────────────────────────────── */
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Section heading ────────────────────────────────────────────────── */
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+
+  /* ── Buttons ────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+           text-white overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #818cf8, #a78bfa);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
+  }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary > * { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+           transition-all duration-300 border;
+  }
+
+  /* ── Tag / pill ─────────────────────────────────────────────────────── */
+  .tag {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  /* ── Terminal UI ────────────────────────────────────────────────────── */
+  .terminal-window {
+    @apply relative rounded-xl border overflow-hidden;
+    border-color: #1a1a2e;
+    background: rgba(8, 8, 16, 0.9);
+    backdrop-filter: blur(20px);
+  }
+  .terminal-bar {
+    @apply flex items-center gap-1.5 px-4 py-3 border-b;
+    border-color: #1a1a2e;
+    background: rgba(14, 14, 26, 0.95);
+  }
+  .terminal-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+
+  /* ── Glitch text effect ─────────────────────────────────────────────── */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .glitch:hover::before {
+    animation: glitch-1 0.4s ease-in-out;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-2px, -2px);
+    color: #06b6d4;
+  }
+  .glitch:hover::after {
+    animation: glitch-2 0.4s ease-in-out;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    transform: translate(2px, 2px);
+    color: #8b5cf6;
+  }
+
+  /* ── Cursor blink ───────────────────────────────────────────────────── */
+  .cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: #6366f1;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursorBlink 1s step-end infinite;
+  }
+
+  /* ── Scanline hover (for cards) ─────────────────────────────────────── */
+  .scanline-hover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+  }
+  .scanline-hover:hover::after {
+    transform: translateY(100vh);
+    transition: transform 1.5s linear;
+  }
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────────────────── */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(-6px) rotate(-1deg); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes glitch-1 {
+  0%   { transform: translate(-2px, -2px); }
+  25%  { transform: translate(2px, 2px); }
+  50%  { transform: translate(-1px, 1px); }
+  75%  { transform: translate(1px, -1px); }
+  100% { transform: translate(-2px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0%   { transform: translate(2px, 2px); }
+  25%  { transform: translate(-2px, -2px); }
+  50%  { transform: translate(1px, -1px); }
+  75%  { transform: translate(-1px, 1px); }
+  100% { transform: translate(2px, 2px); }
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes progressFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ─── Tilt card helper ──────────────────────────────────────────────────────── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out, box-shadow 0.3s ease;
+}
+.tilt-card:hover {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
