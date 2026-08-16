@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import StatsStrip from '../components/StatsStrip'
 import ProjectCard from '../components/ProjectCard'
 import BlogPostRow from '../components/BlogPostRow'
 import SkillsGrid from '../components/SkillsGrid'
+import { Reveal, RevealGroup, RevealItem } from '../components/Reveal'
+import { useParallax } from '../hooks/useParallax'
 import { featuredProjects } from '../data/projects'
 import { blogPosts } from '../data/blog'
 import { personal } from '../data/personal'
@@ -156,12 +158,26 @@ const fadeUp = (delay: number) => ({
 /* ── Page component ─────────────────────────────────────────── */
 
 export default function HomePage() {
+  /* Hero: pinned parallax — blobs drift, content + photo float at different depths */
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const heroBlobY1  = useTransform(heroProgress, [0, 1], ['0%', '35%'])
+  const heroBlobY2  = useTransform(heroProgress, [0, 1], ['0%', '-25%'])
+  const heroContentY = useTransform(heroProgress, [0, 1], ['0%', '10%'])
+  const heroPhotoY   = useTransform(heroProgress, [0, 1], ['0%', '-8%'])
+
+  /* About strip + Writing section: ambient blobs drift as the section scrolls through view */
+  const { ref: aboutRef, y: aboutBlobY1, yInverse: aboutBlobY2 } = useParallax<HTMLElement>(18)
+  const { ref: writingRef, y: writingBlobY1, yInverse: writingBlobY2 } = useParallax<HTMLElement>(16)
+
   return (
     <>
       {/* ── 1. Hero ────────────────────────────────────────────── */}
-      <section className="hero">
+      <section className="hero" ref={heroRef}>
+        <motion.div className="parallax-blob parallax-blob--cyan hero__blob--1" style={{ y: heroBlobY1 }} aria-hidden />
+        <motion.div className="parallax-blob parallax-blob--rust hero__blob--2" style={{ y: heroBlobY2 }} aria-hidden />
         <div className="container">
-          <div className="hero__grid">
+          <motion.div className="hero__grid" style={{ y: heroContentY }}>
 
             <div className="hero__text">
               <motion.p className="hero__eyebrow" {...fadeUp(0.05)}>
@@ -238,6 +254,7 @@ export default function HomePage() {
 
             <motion.div
               className="hero__photo-wrap"
+              style={{ y: heroPhotoY }}
               initial={{ opacity: 0, x: 28 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, ease: 'easeOut', delay: 0.25 }}
@@ -248,7 +265,7 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-          </div>
+          </motion.div>
         </div>
 
         <div className="hero__scroll-hint" aria-hidden>
@@ -270,39 +287,45 @@ export default function HomePage() {
       {/* ── 3. Skills Bento Grid ───────────────────────────────── */}
       <section className="section">
         <div className="container">
-          <SkillsGrid />
+          <Reveal>
+            <SkillsGrid />
+          </Reveal>
         </div>
       </section>
 
       {/* ── 4. Featured Projects ───────────────────────────────── */}
       <section className="section section--alt">
         <div className="container">
-          <div className="section__header">
+          <Reveal className="section__header">
             <p className="section__label">Selected Work</p>
             <h2 className="section__title">Featured Projects</h2>
             <p className="section__subtitle">
               Hackathon builds, student platforms, and AI accessibility tools — each solving a real
               problem under competition pressure.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="project-grid">
+          <RevealGroup className="project-grid">
             {featuredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <RevealItem key={project.id}>
+                <ProjectCard project={project} />
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
 
-          <div className="section__cta">
+          <Reveal className="section__cta" delay={0.1}>
             <Link to="/projects" className="btn btn--outline">View All Projects</Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ── 5. About Strip ─────────────────────────────────────── */}
-      <section className="about-strip">
+      <section className="about-strip" ref={aboutRef}>
+        <motion.div className="parallax-blob parallax-blob--cyan about-strip__blob--1" style={{ y: aboutBlobY1 }} aria-hidden />
+        <motion.div className="parallax-blob parallax-blob--rust about-strip__blob--2" style={{ y: aboutBlobY2 }} aria-hidden />
         <div className="container">
           <div className="about-strip__grid">
-            <div>
+            <Reveal y={22}>
               <p className="about-strip__label">About</p>
               <h2 className="about-strip__heading">
                 Building at the intersection of technology, leadership, and community impact.
@@ -310,9 +333,9 @@ export default function HomePage() {
               <p className="about-strip__body">
                 I'm an Information Technology undergraduate at UTP with a Minor in Corporate
                 Management, fully funded by MARA. My technical work spans Oracle APEX, SQL, Python,
-                and system architecture design — while my leadership track covers presidencies of two
-                student organisations, directing events for 350+ participants, and representing 7,000+
-                students on the Student Representative Council.
+                and system architecture design — while my leadership track covers presidencies of
+                multiple student organisations, directing events for 350+ participants, and
+                representing 7,000+ students on the Student Representative Council.
               </p>
               <p className="about-strip__body">
                 I'm seeking an internship from September 2026 to April 2027 where I can apply both my
@@ -323,41 +346,45 @@ export default function HomePage() {
                 <Link to="/resume" className="btn btn--ghost">Read Full Resume</Link>
                 <Link to="/contact" className="btn btn--ghost">Say Hello</Link>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="about-strip__stats">
+            <RevealGroup className="about-strip__stats">
               {[
                 { v: 'MARA',      l: 'Scholarship' },
                 { v: '25+',       l: 'Events Directed' },
                 { v: 'Sept 2026', l: 'Internship Start' },
               ].map(({ v, l }) => (
-                <div key={l} className="about-stat">
+                <RevealItem key={l} className="about-stat">
                   <p className="about-stat__value">{v}</p>
                   <p className="about-stat__label">{l}</p>
-                </div>
+                </RevealItem>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </div>
       </section>
 
       {/* ── 6. Latest Writing ──────────────────────────────────── */}
-      <section className="section section--warm">
+      <section className="section section--warm section--parallax" ref={writingRef}>
+        <motion.div className="parallax-blob parallax-blob--rust section--parallax__blob--1" style={{ y: writingBlobY1 }} aria-hidden />
+        <motion.div className="parallax-blob parallax-blob--cyan section--parallax__blob--2" style={{ y: writingBlobY2 }} aria-hidden />
         <div className="container">
-          <div className="section__header">
+          <Reveal className="section__header">
             <p className="section__label">Writing</p>
             <h2 className="section__title">Latest from the Blog</h2>
-          </div>
+          </Reveal>
 
-          <div className="blog-list">
+          <RevealGroup className="blog-list">
             {latestPosts.map((post, i) => (
-              <BlogPostRow key={post.slug} post={post} position={i + 1} />
+              <RevealItem key={post.slug}>
+                <BlogPostRow post={post} position={i + 1} />
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
 
-          <div className="section__blog-cta">
+          <Reveal className="section__blog-cta" delay={0.1}>
             <Link to="/blog" className="btn btn--outline">All Posts →</Link>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

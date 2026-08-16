@@ -4,6 +4,7 @@
  * All 9 projects grouped by category, each group in its own section.
  */
 import ProjectCard from '../components/ProjectCard'
+import { Reveal, RevealGroup, RevealItem } from '../components/Reveal'
 import { projects } from '../data/projects'
 import type { Project } from '../types'
 import { personal } from '../data/personal'
@@ -63,18 +64,20 @@ export default function ProjectsPage() {
       {grouped.map(({ cat, items }, gi) => (
         <section key={cat} className={`section${gi % 2 !== 0 ? ' section--warm' : ''}`}>
           <div className="container">
-            <div className="section__header">
+            <Reveal className="section__header">
               <p className="section__label">{CATEGORY_LABELS[cat].label}</p>
               <p className="section__subtitle section__subtitle--narrow">
                 {CATEGORY_LABELS[cat].subtitle}
               </p>
-            </div>
+            </Reveal>
 
-            <div className="project-grid">
+            <RevealGroup className="project-grid">
               {items.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+                <RevealItem key={project.id}>
+                  <ProjectCard project={project} />
+                </RevealItem>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </section>
       ))}
@@ -82,7 +85,7 @@ export default function ProjectsPage() {
       {/* Footer note */}
       <div className="section section--warm projects-more">
         <div className="container">
-          <div className="projects-more__box">
+          <Reveal className="projects-more__box">
             <p className="projects-more__text">
               More projects always in the works.{' '}
               <a
@@ -94,7 +97,7 @@ export default function ProjectsPage() {
                 Follow on GitHub →
               </a>
             </p>
-          </div>
+          </Reveal>
         </div>
       </div>
     </>

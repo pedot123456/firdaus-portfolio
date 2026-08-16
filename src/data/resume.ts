@@ -25,9 +25,10 @@ const workEntries: TimelineEntry[] = [
     description:
       'Managed end-to-end undergraduate intake operations under the Admissions Office.',
     bullets: [
-      'Managed end-to-end undergraduate intake operations and student application processing.',
-      'Served as primary contact point for prospective students and parents throughout the admission cycle.',
-      'Collaborated on educational marketing initiatives including campus tours and open-day sessions.',
+      'Managed end-to-end undergraduate intake operations, processing student applications with high administrative precision.',
+      'Served as primary contact point for prospective local and international students and parents throughout the admission cycle.',
+      'Organised, sorted, and cross-checked application files to ensure quick verification of transcripts and prerequisite documentation.',
+      'Collaborated on educational marketing initiatives including campus tours and open-day consultation sessions.',
     ],
   },
   {
@@ -39,8 +40,9 @@ const workEntries: TimelineEntry[] = [
     description:
       'Managed event operations and customer engagement for a professional photography and photobooth services company.',
     bullets: [
-      'Managed event operations, equipment setup, and real-time customer engagement.',
-      'Served as moderator for podcast sessions and media-related programmes.',
+      'Managed event operations, equipment setup, and real-time customer engagement for photography and photobooth services across multiple programmes.',
+      'Served as moderator for podcast sessions and media-related programmes, facilitating discussions and audience engagement.',
+      'Supported promotional activities and client communication for studio-related services.',
     ],
   },
   {
@@ -48,10 +50,11 @@ const workEntries: TimelineEntry[] = [
     category: 'work',
     role: 'Assistant Imam (On-Campus)',
     organization: 'Universiti Teknologi PETRONAS',
-    period: 'Sep 2023 – Present',
+    period: 'Sep 2023 – Aug 2026',
     description: '',
     bullets: [
-      'Assisted in daily prayer management, congregational prayers, and campus religious activities.',
+      'Assisted in daily prayer management, congregational prayers, and campus religious activities at the university mosque.',
+      'Developed discipline, communication, and time management skills while balancing academic commitments and part-time responsibilities.',
     ],
   },
 ]
@@ -63,14 +66,17 @@ const leadershipEntries: TimelineEntry[] = [
     category: 'leadership',
     role: 'President',
     organization: 'Ambassador of Marketing Youth (ARMy UTP)',
-    period: 'Aug 2025 – Jul 2026',
+    period: 'Jul 2025 – Jul 2026',
     description:
       'ARMy is a university-supervised student marketing club at UTP responsible for promoting ' +
       'campus life, student services, and university events.',
     bullets: [
-      'Led strategic planning for university programmes and supervised the successful execution of 25+ large-scale events.',
+      'Led strategic planning and execution of university-level programmes, student engagement initiatives, and external collaborations.',
       'Managed cross-functional committees of up to 50 members across logistics, media, protocol, sponsorship, and operations.',
-      'Collaborated with external stakeholders: MARA, MAIPK, KPM, SBP, and MRSM.',
+      'Collaborated with external stakeholders including MARA, MAIPk, Kementerian Pendidikan Malaysia (KPM), MGKK, SBP, and MRSM.',
+      'Supervised the successful execution of 25+ events under my tenure, including orientation, outreach, and leadership programmes.',
+      'Directed "Unlocking True Potential MRSM@UTP" (May 2025), a 3D2N campus programme for 150+ students and 20 teachers nationwide.',
+      'Co-led the "Imtiyaz Energising Futures" 3D2N immersive campus programme with Yayasan Terengganu, and served as Assistant Head of Department, HR.',
     ],
   },
   {
@@ -81,9 +87,10 @@ const leadershipEntries: TimelineEntry[] = [
     period: 'Jan 2026',
     description: '5-day new student orientation programme.',
     bullets: [
-      'Led a 5-day orientation programme welcoming 350+ new students to UTP.',
-      'Coordinated a 111-member committee across all operational departments.',
-      'Developed the first-ever Orientation Week Guideline (Terms of Reference) document.',
+      'Led a 5-day orientation programme welcoming 350+ new students to UTP, working directly with the University President and Vice Provost.',
+      'Initiated a brand-new O\'Week structure and authored the first-ever Orientation Week Terms of Reference (Guideline).',
+      'Reduced the programme from 6 to 5 days and introduced a new HICOM system for streamlined operations.',
+      'Added new engagement slots — Alumni Sharing and DNA of UTP — to better inspire incoming students.',
     ],
   },
   {
@@ -95,8 +102,22 @@ const leadershipEntries: TimelineEntry[] = [
     description:
       '4-day CSR camp programme for children of PETRONAS employees.',
     bullets: [
-      'Directed a 4-day CSR programme for 160 participants (PETRONAS employee children).',
-      'Coordinated 50 committee members and managed programme financial planning totalling RM 109,505.00.',
+      'Directed a 4-day, 3-night CSR programme for 160 participants (children of PETRONAS employees), focused on spiritual well-being, leadership, and personal growth.',
+      'Secured sponsorships and support from YUTP, Majlis Agama Islam Perak (MAIPk), An-Nur Islamic Centre, and PETRONAS Chemical Fertilizer Kedah (PCFK).',
+      'Coordinated the committee and managed programme financial planning totalling RM 109,505.00.',
+    ],
+  },
+  {
+    id: 'fexes',
+    category: 'leadership',
+    role: 'Project Director — FEXES 4.0',
+    organization: 'Centre for Foundation Studies (CFS), UTP',
+    period: 'Feb 2024',
+    description: 'Business-management engagement programme for foundation students.',
+    bullets: [
+      'Led a team engaging 500+ foundation students in Business Management.',
+      'Collaborated with Touch \'n Go and Maybank to implement seamless e-payments live at the event.',
+      'Secured sponsorship support from Nazhan Production and CFS to fund the initiative.',
     ],
   },
   {
@@ -111,6 +132,7 @@ const leadershipEntries: TimelineEntry[] = [
       'Project Team Lead — SandBox Micromobility Initiative (May 2025 – Jan 2026): directed project strategy, created safety campaigns, and synthesised field observations into formal HSE management recommendations.',
       'Assistant Project Director — Student Barometer Survey 2025: mobilised student body to achieve an 85% survey participation rate; managed legal disbursement of RM 12,830.00 in taskforce resources.',
       'Assistant Exco Welfare (Jan–Nov 2025): spearheaded the Yayasan Bina Upaya Food Coupon programme and Jimat Fridays initiative; led HSSE Cleaning & Clearance for abandoned vehicles.',
+      'Assistant Project Director — Student Excellent Awards (SEA) 2025 and Project Director — SRC Team Building (Escape Penang, 27 participants).',
       'Member of Parliament, UTP Student Parliamentary & Election Council (2024–2025): represented Village 6 and advocated for improved campus parking infrastructure.',
     ],
   },
@@ -123,9 +145,10 @@ const leadershipEntries: TimelineEntry[] = [
     description:
       'Led MUHANDIS, a student technology and engineering culture club at UTP.',
     bullets: [
-      'Conducted inter-varsity benchmarking with peer organisations at UKM (Lasykar Khaleefa).',
-      'Optimised organisational design and reduced committee overhead.',
-      'Pioneered the production of an original club album as a branding and engagement initiative.',
+      'Conducted inter-varsity benchmarking with peer organisations at UKM (Lasykar Khaleefa) to integrate best practices in performance management and team discipline.',
+      'Optimised organisational design and reduced committee overhead through streamlined management workflows.',
+      'Pioneered the production of an original club album, overseeing songwriting through final audio production.',
+      'Secured 2nd Place at Cultiva Sports (Futsal) and 3rd Place at the UniSZA International Arabic Festival.',
     ],
   },
   {
@@ -137,9 +160,22 @@ const leadershipEntries: TimelineEntry[] = [
     description:
       'CYBERHAX is UTP\'s student-run cybersecurity club.',
     bullets: [
-      'Spearheaded planning and execution of campus-wide cybersecurity awareness events and hackathons.',
-      'Organised hands-on penetration testing workshops and CTF competitions.',
-      'Managed partnerships with industry professionals for technical talks attended by 300+ students.',
+      'Spearheaded strategic planning, technical scoping, and execution of campus-wide cybersecurity events, workshops, and hackathons.',
+      'Managed a cross-functional committee across logistics, technical infrastructure, and marketing to deliver under tight deadlines.',
+      'Oversaw risk assessment and crowd management for physical and virtual threat-monitoring simulations.',
+      'Competed in PETRONAS Group Security\'s SECURE NEX Hackathon 2025 with UTP SYNTECH, placing 5th.',
+    ],
+  },
+  {
+    id: 'petra-vinyl',
+    category: 'leadership',
+    role: 'Assistant Project Director — Vinyl Of Nusantara',
+    organization: 'PETRA UTP',
+    period: 'Sep 2024 – Jun 2025',
+    description: 'Music and culture event series celebrating Nusantara heritage.',
+    bullets: [
+      'Supervised the Public Relations and Sponsorship departments for Vinyl Of Nusantara 3.0, securing key partnerships and amplifying event reach.',
+      'Led the Food & Beverages department for Vinyl Of Nusantara 2.0, curating a seamless dining experience for attendees.',
     ],
   },
   {
@@ -150,8 +186,22 @@ const leadershipEntries: TimelineEntry[] = [
     period: 'Dec 2025 – May 2026',
     description: '',
     bullets: [
-      'Secured full corporate funding two weeks ahead of schedule.',
-      'Maintained pre-event expenditures below RM 500.',
+      'Headed the Business and Sponsorship department, overseeing end-to-end corporate fundraising strategy, outreach, and financial planning.',
+      'Secured full targeted corporate sponsorship funding two weeks ahead of the primary event deadline.',
+      'Maintained pre-event operational expenditures below RM 500 through strategic resource allocation and negotiation.',
+      'Crafted tailored corporate value propositions and pitch decks to build professional ties with external organisations.',
+    ],
+  },
+  {
+    id: 'rakan-masjid',
+    category: 'leadership',
+    role: 'Committee Member',
+    organization: 'Rakan Masjid UTP',
+    period: 'Jun 2025 – Jul 2026',
+    description: '',
+    bullets: [
+      'Contributed to Islamic and community programmes including UTP #QuranTime, Ihya Ramadan Discovery, and Konvensyen Belia Islam IPT Negeri Perak.',
+      'Served as imam coordinator and moderator for "Gema UTP Bersama Al-Aqsa"; led Public Relations for Cahaya Ramadan 2024.',
     ],
   },
   {

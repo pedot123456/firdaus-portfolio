@@ -7,14 +7,17 @@
  */
 import { timelineEntries, sidebarInfo, awards, certifications } from '../data/resume'
 import SkillsGrid from '../components/SkillsGrid'
+import { Reveal, RevealGroup, RevealItem } from '../components/Reveal'
+import { useParallax } from '../hooks/useParallax'
+import { motion } from 'framer-motion'
 import { personal } from '../data/personal'
 import type { Certification } from '../types'
 
 function Timeline() {
   return (
-    <div className="timeline">
+    <RevealGroup className="timeline">
       {timelineEntries.map((entry) => (
-        <div key={entry.id} className="timeline-entry">
+        <RevealItem key={entry.id} className="timeline-entry">
           <p className="timeline-entry__period">{entry.period}</p>
           <h3 className="timeline-entry__role">{entry.role}</h3>
           <p className="timeline-entry__org">{entry.organization}</p>
@@ -28,31 +31,31 @@ function Timeline() {
               ))}
             </ul>
           )}
-        </div>
+        </RevealItem>
       ))}
-    </div>
+    </RevealGroup>
   )
 }
 
 function Awards() {
   return (
     <>
-      <div className="resume-section__intro">
+      <Reveal className="resume-section__intro">
         <p className="resume-section__label">Recognition</p>
         <h2 className="resume-section__heading">Awards &amp; Achievements</h2>
-      </div>
-      <div className="awards-grid">
+      </Reveal>
+      <RevealGroup className="awards-grid">
         {awards.map(({ title, event, year, highlight }) => (
-          <div
+          <RevealItem
             key={`${title}-${event}`}
             className={`award-card${highlight ? ' award-card--highlight' : ''}`}
           >
             <p className="award-card__place">{title}</p>
             <p className="award-card__event">{event}</p>
             <p className="award-card__year">{year}</p>
-          </div>
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
     </>
   )
 }
@@ -71,13 +74,13 @@ function CertGroups() {
 
   return (
     <>
-      <div className="resume-section__intro">
+      <Reveal className="resume-section__intro">
         <p className="resume-section__label">Certifications</p>
         <h2 className="resume-section__heading">Professional Credentials</h2>
-      </div>
-      <div className="cert-groups">
+      </Reveal>
+      <RevealGroup className="cert-groups">
         {grouped.map(({ g, items }) => (
-          <div key={g}>
+          <RevealItem key={g}>
             <p className="cert-group__title">{g}</p>
             <div className="cert-list">
               {items.map(({ title, issuer, year }) => (
@@ -90,9 +93,9 @@ function CertGroups() {
                 </div>
               ))}
             </div>
-          </div>
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
     </>
   )
 }
@@ -100,7 +103,7 @@ function CertGroups() {
 
 function MetaCard() {
   return (
-    <div className="sidebar-card">
+    <Reveal className="sidebar-card" delay={0.1}>
       <p className="sidebar-card__title">Quick Info</p>
       {sidebarInfo.map(({ label, value, href }) => (
         <div key={label} className="meta-row">
@@ -115,17 +118,25 @@ function MetaCard() {
           </div>
         </div>
       ))}
-    </div>
+    </Reveal>
   )
 }
 
 export default function ResumePage() {
+  const { ref: headerRef, y: headerBlobY } = useParallax<HTMLDivElement>(14, ['start start', 'end start'])
+
   return (
     <>
       {/* Dark header: photo + name + bio + buttons */}
-      <div className="resume-header" id="contact">
+      <div className="resume-header" id="contact" ref={headerRef}>
+        <motion.div className="parallax-blob parallax-blob--cyan resume-header__blob" style={{ y: headerBlobY }} aria-hidden />
         <div className="container">
-          <div className="resume-header__inner">
+          <motion.div
+            className="resume-header__inner"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          >
             {/* Headshot */}
             <div className="resume-header__photo">
               <img src={personal.photo} alt={personal.fullName} />
@@ -166,7 +177,7 @@ export default function ResumePage() {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -176,10 +187,10 @@ export default function ResumePage() {
           <div className="resume-layout">
             {/* Main column: timeline + awards + certs */}
             <main>
-              <div className="resume-section__intro">
+              <Reveal className="resume-section__intro">
                 <p className="resume-section__label">Experience &amp; Education</p>
                 <h2 className="resume-section__heading">My Journey</h2>
-              </div>
+              </Reveal>
               <Timeline />
 
               <div className="resume-main__subsection">
@@ -202,10 +213,12 @@ export default function ResumePage() {
       {/* Skills bento — full width below the two-column layout */}
       <section className="section section--alt">
         <div className="container">
-          <SkillsGrid
-            title="Technical Skills"
-            subtitle="Languages, frameworks, and tools I use to build real solutions."
-          />
+          <Reveal>
+            <SkillsGrid
+              title="Technical Skills"
+              subtitle="Languages, frameworks, and tools I use to build real solutions."
+            />
+          </Reveal>
         </div>
       </section>
     </>

@@ -8,6 +8,7 @@
  * - Slide-in hover effect via translateX (CSS class .blog-post-row)
  */
 import BlogPostRow from '../../components/BlogPostRow'
+import { RevealGroup, RevealItem } from '../../components/Reveal'
 import { blogPosts } from '../../data/blog'
 
 /* Sort newest first */
@@ -30,11 +31,13 @@ export default function BlogIndexPage() {
 
       <section className="section">
         <div className="container container--narrow">
-          <div className="blog-list">
+          <RevealGroup className="blog-list">
             {sorted.map((post, i) => (
-              <BlogPostRow key={post.slug} post={post} position={i + 1} />
+              <RevealItem key={post.slug}>
+                <BlogPostRow post={post} position={i + 1} />
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
     </>
